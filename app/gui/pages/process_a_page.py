@@ -127,18 +127,33 @@ class ProcessAPage(QWidget):
         cite_title.setObjectName("sectionTitle")
 
         cite_description = QLabel(
-            "Ingrese el identificador CITE que tendrá la carta."
+            "Ingrese el número y el año del CITE que tendrá la carta."
         )
         cite_description.setObjectName("fieldDescription")
 
-        self.cite_input = QLineEdit()
-        self.cite_input.setPlaceholderText(
-            "Ejemplo: CITE correspondiente a la carta"
-        )
+        cite_layout = QHBoxLayout()
+        cite_layout.setSpacing(12)
+        cite_prefix = QLabel("PEB/CORP/CBS")
+        cite_prefix.setObjectName("fieldLabel")
+        self.cite_number_input = QLineEdit()
+        self.cite_number_input.setPlaceholderText("007")
+        self.cite_number_input.setAccessibleName("Número de CITE")
+        self.cite_number_input.setMaximumWidth(180)
+        cite_separator = QLabel("/")
+        cite_separator.setObjectName("fieldLabel")
+        self.cite_year_input = QLineEdit()
+        self.cite_year_input.setPlaceholderText("AAAA")
+        self.cite_year_input.setAccessibleName("Año del CITE")
+        self.cite_year_input.setMaximumWidth(100)
+        cite_layout.addWidget(cite_prefix)
+        cite_layout.addWidget(self.cite_number_input)
+        cite_layout.addWidget(cite_separator)
+        cite_layout.addWidget(self.cite_year_input)
+        cite_layout.addStretch()
 
         form_layout.addWidget(cite_title)
         form_layout.addWidget(cite_description)
-        form_layout.addWidget(self.cite_input)
+        form_layout.addLayout(cite_layout)
 
         # -----------------------------
         # 3. ETAPA DEL PROCESO
@@ -555,7 +570,8 @@ class ProcessAPage(QWidget):
             self.data.annexes = extract_request_annexes(
                 self.data.request_file
             )
-        self.data.cite = self.cite_input.text().strip()
+        self.data.cite_number = self.cite_number_input.text().strip()
+        self.data.cite_year = self.cite_year_input.text().strip()
 
         if self.start_radio.isChecked():
             self.data.stage = "inicio"
@@ -724,7 +740,7 @@ ANEXOS Y DOCUMENTOS DETECTADOS
 DATOS SELECCIONADOS
 
 CITE:
-{self.data.cite}
+{mapped_data['full_cite']}
 
 Etapa:
 {self.data.stage}
@@ -768,7 +784,7 @@ Descripción:
 {self.data.process_description}
 
 CITE:
-{self.data.cite}
+{mapped_data['full_cite']}
 
 Áreas:
 {areas_text}

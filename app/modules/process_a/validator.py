@@ -9,10 +9,15 @@ def validate_process_a(data: ProcessAData):
             "Debe seleccionar una Solicitud de Cotización."
         )
 
-    if not data.cite:
-        errors.append(
-            "Debe ingresar el CITE de la carta."
-        )
+    if not data.cite_number.strip():
+        errors.append("Debe ingresar el número de CITE.")
+
+    if not data.cite_year.strip():
+        errors.append("Debe ingresar el año del CITE.")
+    elif len(data.cite_year) != 4 or not all(
+        digit in "0123456789" for digit in data.cite_year
+    ):
+        errors.append("El año del CITE debe tener exactamente 4 dígitos numéricos.")
 
     if not data.stage:
         errors.append(

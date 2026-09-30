@@ -111,9 +111,10 @@ def map_process_a_data(data: ProcessAData):
         ):
             if company not in cc_companies:
                 cc_companies.append(company)
+    full_cite = f"PEB/CORP/CBS {data.cite_number}/{data.cite_year}"
     mapped_data = {
         "request_file": data.request_file,
-        "cite": data.cite,
+        "full_cite": full_cite,
         "process_number": data.process_number,
         "process_description": data.process_description,
         "annexes": data.annexes,

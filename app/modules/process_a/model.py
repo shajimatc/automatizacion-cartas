@@ -5,7 +5,8 @@ from typing import List, Optional
 @dataclass
 class ProcessAData:
     request_file: str = ""
-    cite: str = ""
+    cite_number: str = ""
+    cite_year: str = ""
     stage: str = ""
     destination: str = ""
 

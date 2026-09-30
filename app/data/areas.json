@@ -1,22 +1,22 @@
 [
   {
     "id": "itu",
-    "name": "BLOQUE XX TARIJA OESTE (ITAÚ)"
+    "name": "Área Bloque XX Tarija Oeste (ITAÚ)"
   },
   {
     "id": "sal",
-    "name": "SAN ALBERTO"
+    "name": "Área San Alberto"
   },
   {
     "id": "san",
-    "name": "SAN ANTONIO"
+    "name": "Área Bloque San Antonio"
   },
   {
     "id": "colpa_caranda",
-    "name": "CAMPOS COLPA CARANDA"
+    "name": "Área Campos Colpa y Caranda"
   },
   {
     "id": "san_telmo_norte",
-    "name": "SAN TELMO NORTE"
+    "name": "Área San Telmo Norte"
   }
 ]
