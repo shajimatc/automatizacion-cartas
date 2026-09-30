@@ -1,0 +1,20 @@
+[
+    {
+        "id": "empresa_1",
+        "company": "Empresa de prueba 1",
+        "recipient_name": "Nombre de prueba 1",
+        "position": "Cargo de prueba 1"
+    },
+    {
+        "id": "empresa_2",
+        "company": "Empresa de prueba 2",
+        "recipient_name": "Nombre de prueba 2",
+        "position": "Cargo de prueba 2"
+    },
+    {
+        "id": "empresa_3",
+        "company": "Empresa de prueba 3",
+        "recipient_name": "Nombre de prueba 3",
+        "position": "Cargo de prueba 3"
+    }
+]

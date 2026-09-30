@@ -3,8 +3,7 @@
 
 # Python
 __pycache__/
-*.pyc
-*.pyo
+*.py[cod]
 
 # VS Code
 .vscode/

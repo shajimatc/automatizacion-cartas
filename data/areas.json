@@ -1,0 +1,22 @@
+[
+  {
+    "id": "itu",
+    "name": "BLOQUE XX TARIJA OESTE (ITAÚ)"
+  },
+  {
+    "id": "sal",
+    "name": "SAN ALBERTO"
+  },
+  {
+    "id": "san",
+    "name": "SAN ANTONIO"
+  },
+  {
+    "id": "colpa_caranda",
+    "name": "CAMPOS COLPA CARANDA"
+  },
+  {
+    "id": "san_telmo_norte",
+    "name": "SAN TELMO NORTE"
+  }
+]

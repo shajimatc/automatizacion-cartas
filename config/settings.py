@@ -1,0 +1,5 @@
+APP_NAME = "Generador de Cartas"
+APP_VERSION = "0.1.0"
+
+WINDOW_WIDTH = 1200
+WINDOW_HEIGHT = 760
