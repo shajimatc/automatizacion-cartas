@@ -1,0 +1,26 @@
+[
+    {
+        "id": "ypfb_andina",
+        "company": "YPFB Andina S.A.",
+        "recipient_name": "Andrés F. Brockmann Rojas",
+        "position": "Gerente General"
+    },
+    {
+        "id": "totalenergies",
+        "company": "TotalEnergies EP Bolivie Sucursal Bolivia",
+        "recipient_name": "Sergio Giorgi",
+        "position": "Gerente General"
+    },
+    {
+        "id": "shell_bolivia",
+        "company": "Shell Bolivia Corporation, Sucursal Bolivia",
+        "recipient_name": "María Cristina Núñez",
+        "position": "Gerente General"
+    },
+    {
+        "id": "ypfb_chaco",
+        "company": "YPFB Chaco S.A.",
+        "recipient_name": "Abel Villegas Ovando",
+        "position": "Gerente General"
+    }
+]

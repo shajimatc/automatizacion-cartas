@@ -11,3 +11,11 @@ __pycache__/
 # Archivos temporales
 *.tmp
 ~$*.docx
+# Respaldos y verificaciones locales
+app_BACKUP_COMPLETO/
+git_interno_app_backup/
+app_backup_antes_de_arreglar_git.bundle
+verification/
+
+# Backups de plantillas creados por Codex
+*.backup_*.docx
