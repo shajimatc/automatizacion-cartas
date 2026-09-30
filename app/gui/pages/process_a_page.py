@@ -380,6 +380,10 @@ class ProcessAPage(QWidget):
         areas_label = QLabel("Áreas")
         areas_label.setObjectName("fieldLabel")
 
+        ypfb_layout.addWidget(ypfb_title)
+        ypfb_layout.addWidget(ypfb_description)
+        ypfb_layout.addWidget(areas_label)
+
         self.area_checkboxes = []
 
         self.areas = load_areas()
@@ -400,14 +404,28 @@ class ProcessAPage(QWidget):
                 checkbox
             )
 
-        ypfb_layout.addWidget(ypfb_title)
-        ypfb_layout.addWidget(ypfb_description)
-        ypfb_layout.addWidget(areas_label)
-
-
         form_layout.addWidget(self.ypfb_frame)
 
         self.ypfb_frame.hide()
+
+        self.close_frame = QFrame()
+        self.close_frame.setObjectName("dynamicSection")
+        close_layout = QVBoxLayout(self.close_frame)
+        close_layout.setContentsMargins(20, 20, 20, 20)
+        close_layout.setSpacing(12)
+        close_title = QLabel("6. Datos de cierre — Destino: YPFB")
+        close_title.setObjectName("sectionTitle")
+        close_layout.addWidget(close_title)
+        close_layout.addWidget(QLabel("Referencia de autorización"))
+        self.authorization_reference_input = QLineEdit()
+        self.authorization_reference_input.setPlaceholderText("CEAC-123/2026")
+        close_layout.addWidget(self.authorization_reference_input)
+        close_layout.addWidget(QLabel("Registro SINCOP"))
+        self.sincop_registration_input = QLineEdit()
+        self.sincop_registration_input.setPlaceholderText("PEB-A-012/2026")
+        close_layout.addWidget(self.sincop_registration_input)
+        form_layout.addWidget(self.close_frame)
+        self.close_frame.hide()
 
         # -----------------------------
         # CONEXIÓN DE LA LÓGICA
@@ -475,8 +493,10 @@ class ProcessAPage(QWidget):
             self.file_label.setText(file_path)
 
     def update_stage_options(self):
+        self.close_frame.setVisible(self.end_radio.isChecked())
         if self.start_radio.isChecked():
             self.destination_frame.show()
+            self.update_destination_options()
 
         else:
             self.destination_frame.hide()
@@ -488,8 +508,14 @@ class ProcessAPage(QWidget):
             self.partners_radio.setChecked(False)
             self.ypfb_radio.setChecked(False)
             self.destination_group.setExclusive(True)
+            self.ypfb_frame.setVisible(self.end_radio.isChecked())
 
     def update_destination_options(self):
+        if self.end_radio.isChecked():
+            self.partners_frame.hide()
+            self.block_frame.hide()
+            self.ypfb_frame.show()
+            return
         if self.partners_radio.isChecked():
             self.partners_frame.show()
             self.ypfb_frame.hide()
@@ -505,7 +531,7 @@ class ProcessAPage(QWidget):
             self.block_frame.hide()
 
     def update_billing_options(self):
-        if self.block_radio.isChecked():
+        if self.block_radio.isChecked() and self.start_radio.isChecked():
             self.block_frame.show()
 
         else:
@@ -599,6 +625,27 @@ class ProcessAPage(QWidget):
                     )
 
         self.data.area_ids = selected_areas
+
+        self.data.authorization_reference = ""
+        self.data.sincop_registration = ""
+        if self.data.stage == "fin":
+            self.data.destination = "ypfb"
+            self.data.company_ids = []
+            self.data.billing_type = None
+            self.data.block_percentages = {}
+            self.data.block_distribution = ""
+            self.data.annexes = []
+            self.data.area_ids = [
+                checkbox.property("area_id")
+                for checkbox in self.area_checkboxes
+                if checkbox.isChecked()
+            ]
+            self.data.authorization_reference = (
+                self.authorization_reference_input.text().strip()
+            )
+            self.data.sincop_registration = (
+                self.sincop_registration_input.text().strip()
+            )
 
     def show_collected_data(self):
         pass
@@ -702,6 +749,44 @@ Fecha:
 
 Copias:
 {cc_text}
+"""
+
+        if self.data.stage == "fin":
+            attachments_text = "\n".join(
+                f"Anexo {index}: {attachment}"
+                for index, attachment in enumerate(
+                    mapped_data["close_attachments"], start=1
+                )
+            )
+            preview_text = f"""
+DATOS DE CIERRE — YPFB
+
+Número de proceso:
+{self.data.process_number}
+
+Descripción:
+{self.data.process_description}
+
+CITE:
+{self.data.cite}
+
+Áreas:
+{areas_text}
+
+Referencia de autorización:
+{self.data.authorization_reference}
+
+Registro SINCOP:
+{self.data.sincop_registration}
+
+Fecha:
+{mapped_data['current_day']} de {mapped_data['current_month']} de {mapped_data['current_year']}
+
+Copias:
+{cc_text}
+
+ADJUNTOS DE CIERRE
+{attachments_text}
 """
 
         dialog = QDialog(self)

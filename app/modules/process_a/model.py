@@ -25,3 +25,5 @@ class ProcessAData:
     process_number: str = ""
     process_description: str = ""
     annexes: List[str] = field(default_factory=list)
+    authorization_reference: str = ""
+    sincop_registration: str = ""

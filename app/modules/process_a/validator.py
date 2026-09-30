@@ -99,4 +99,12 @@ def validate_process_a(data: ProcessAData):
                     "Debe seleccionar al menos un área."
                 )
 
+    if data.stage == "fin":
+        if not data.area_ids:
+            errors.append("Debe seleccionar al menos un área.")
+        if not data.authorization_reference.strip():
+            errors.append("Debe ingresar la referencia de autorización.")
+        if not data.sincop_registration.strip():
+            errors.append("Debe ingresar el registro SINCOP.")
+
     return errors
